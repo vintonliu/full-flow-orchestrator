@@ -7,10 +7,10 @@ description: >-
 
 compatibility:
   requires:
-    - Skill tool 用于调用编排的各阶段技能
-    - TaskCreate/TaskUpdate 用于跟踪各阶段进度
-    - Bash 用于创建文档文件
-    - Write/Edit 用于写入产出物文档
+    - Skill tool — invoke stage-specific skills
+    - TaskCreate/TaskUpdate — track stage progress
+    - Bash — create output directories
+    - Write/Edit — write deliverable documents
 
 ---
 
@@ -79,8 +79,8 @@ compatibility:
 | 需要协作编辑需求文档 | `pm-skills:confluence-expert` | Confluence 文档协作 |
 
 **产出物：**
-- `docs/requirements/v1.md` — PRD / 需求文档（版本化）
-- 或直接产出 `docs/requirements/v1.md` + Jira issues
+- `docs/requirements/requirements-v1.md` — PRD / requirements doc (versioned)
+- 或直接产出 Jira issues (use when Jira is the source of truth)
 
 **检查门：** 需求是否足够明确进入设计？是否有未解决的假设或风险？
 
@@ -106,9 +106,9 @@ compatibility:
 | 完成前需要验证方案 | `superpowers:verification-before-completion` | 方案完整性验证 |
 
 **产出物：**
-- `docs/design/v1.md` — 技术方案 / 架构设计（版本化，重点管控）
+- `docs/design/design-v1.md` — Technical design / architecture doc (versioned, strict control)
 - 如有前端：UI 设计稿（Figma / 截图）
-- `docs/design/v1.md` 中可包含：数据模型、API 设计、模块划分、技术选型理由
+- `docs/design/design-v1.md` can include: data model, API design, module decomposition, tech selection rationale
 
 **检查门：** 方案是否完整？有没有明显的技术盲点？架构决策是否被充分论证？高风险变更先调用 `adversarial-reviewer` 做对抗性审查。
 **→ 进入 Stage 3 前：** 必须先输出实施计划（Stage 3a），用户审核通过后才能进入编码（Stage 3c）。
@@ -129,7 +129,7 @@ compatibility:
 
 在写任何代码之前，先输出一份实施计划并保存为文件：
 
-**产出物：** `docs/implementation-plan/v1.md`（版本化，重点管控）
+**产出物：** `docs/implementation-plan/impl-plan-v1.md` (versioned, strict control)
 
 实施计划必须包含：
 - **任务拆解：** 把功能拆成 3-10 个可独立完成的任务，每个任务有明确的边界
@@ -174,8 +174,8 @@ compatibility:
 
 **产出物：**
 - 源代码（走 git 流程）
-- `docs/development-notes/v1.md`（可选：开发过程中的重要决策记录）
-- 如果实施计划在执行中有调整，更新 `docs/implementation-plan/v2.md`
+- `docs/development-notes/dev-notes-v1.md` (optional: key decisions during development)
+- 如果实施计划在执行中有调整，更新 `docs/implementation-plan/impl-plan-v2.md`
 
 **检查门：** 代码是否可编译/可运行？是否覆盖了设计的核心功能？单元测试是否通过？
 
@@ -198,7 +198,7 @@ compatibility:
 | 完成前验证 | `superpowers:verification-before-completion` | 验证所有验收条件是否满足 |
 
 **产出物：**
-- `docs/test-report/v1.md` — 测试报告（覆盖的测试、发现的问题、修复情况）
+- `docs/test-report/test-report-v1.md` — Test report (coverage, issues found, fixes)
 - 或直接由各测试技能的产出物替代
 
 **检查门：** 所有关键路径是否经过测试？是否有未修复的高/中风险问题？代码审查是否通过？
@@ -245,8 +245,8 @@ compatibility:
 | PM 视角复盘 | `pm-skills:senior-pm` | PM 视角的复盘分析 |
 
 **产出物：**
-- `docs/retrospective/v1.md` — 复盘报告（版本化）
-  内容包括：完成了什么、未完成什么、过程中做对了什么、可以改进什么、行动项
+- `docs/retrospective/retro-v1.md` — Retrospective report (versioned)
+  Contents: what was done, what was not done, what went well, what can be improved, action items
 
 ---
 
