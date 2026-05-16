@@ -51,29 +51,55 @@
 
 ## 依赖技能安装
 
-本技能是编排型技能，需要以下插件包中的子技能来完成各个阶段的工作：
+本技能是编排型技能，需要以下插件包中的子技能来完成各阶段工作。这些插件来自不同的 **marketplace（技能市场）**，需先添加 marketplace 源，再安装具体插件。
 
-### 必装插件
+### 配置 marketplace 源
+
+根据你使用的 Claude Code 环境，可能已预置部分 marketplace。如需手动添加：
 
 ```bash
-# 编排执行能力
-claude plugins install superpowers          # brainstorming, writing-plans, executing-plans, 等
+# 官方市场（通常已内置）
+claude plugins marketplace add claude-plugins-official
 
-# 工程开发能力
-claude plugins install engineering-skills   # senior-architect, code-reviewer, senior-qa, 等
-claude plugins install engineering-advanced-skills  # release-manager
+# Claude Code Skills 社区市场
+claude plugins marketplace add claude-code-skills
+```
 
-# 产品/设计能力
-claude plugins install product-skills       # product-discovery, spec-to-repo, 等
-claude plugins install frontend-design      # frontend-design (UI 设计)
-claude plugins install figma                # figma-implement-design, figma-generate-design
+### 安装依赖插件
 
-# 项目管理能力
-claude plugins install pm-skills            # senior-pm, jira-expert, meeting-analyzer, 等
-claude plugins install commit-commands      # commit-push-pr, commit
+```bash
+# ── 编排执行（官方 claude-plugins-official）──
+claude plugins install superpowers@claude-plugins-official
+# 包含：brainstorming, writing-plans, executing-plans,
+#       test-driven-development, dispatching-parallel-agents,
+#       subagent-driven-development, verification-before-completion,
+#       requesting-code-review, finishing-a-development-branch
 
-# 高管/决策能力
-claude plugins install c-level-skills       # decision-logger
+# ── 工程开发（社区 claude-code-skills）──
+claude plugins install engineering-skills@claude-code-skills
+# 包含：senior-architect, code-reviewer, senior-qa, security-pen-testing,
+#       adversarial-reviewer, senior-fullstack, senior-backend, senior-frontend
+claude plugins install engineering-advanced-skills@claude-code-skills
+# 包含：release-manager
+
+# ── 产品/设计（社区 claude-code-skills）──
+claude plugins install product-skills@claude-code-skills
+# 包含：product-discovery, product-strategist, competitive-teardown,
+#       spec-to-repo, ux-researcher-designer, ui-design-system
+claude plugins install frontend-design@claude-plugins-official
+# 包含：frontend-design（UI 设计）
+claude plugins install figma@claude-plugins-official
+# 包含：figma-implement-design, figma-generate-design（需要 Figma OAuth 认证）
+
+# ── 项目管理（社区 claude-code-skills）──
+claude plugins install pm-skills@claude-code-skills
+# 包含：senior-pm, jira-expert, meeting-analyzer, scrum-master, 等
+claude plugins install commit-commands@claude-plugins-official
+# 包含：commit-push-pr, commit
+
+# ── 高管/决策（社区 claude-code-skills）──
+claude plugins install c-level-skills@claude-code-skills
+# 包含：decision-logger
 ```
 
 ### 验证安装
@@ -82,9 +108,25 @@ claude plugins install c-level-skills       # decision-logger
 claude plugins list
 ```
 
-确保列表中包含以上所有插件。缺少某个插件时，对应阶段的技能将不可用，技能编排时会跳过或降级处理。
+确保列表中所有插件状态为 `✔ enabled`。缺少某个插件时，对应阶段的技能将不可用，编排器会自动跳过或降级处理。
 
-> 提示：部分插件可能需要特定的 MCP 服务器（如 `figma` 需要 Figma MCP 认证）。运行时会提示你完成 OAuth 流程。
+### Marketplace 仓库参考
+
+| Marketplace | GitHub 仓库 | 说明 |
+|-------------|-------------|------|
+| `claude-plugins-official` | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Anthropic 官方技能市场 |
+| `claude-code-skills` | [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) | 社区技能市场 |
+
+### 从 GitHub 直接安装
+
+如果 marketplace 未配置，你也可以从 GitHub 直接安装插件：
+
+```bash
+claude plugins install github:anthropics/claude-plugins-official
+claude plugins install github:alirezarezvani/claude-skills
+```
+
+> 注意：部分插件需要额外的 MCP 服务器认证（如 `figma` 需要 Figma OAuth）。运行时回提示你完成认证流程。
 
 ## 使用方法
 

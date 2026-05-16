@@ -51,29 +51,52 @@ All non-code deliverables follow this naming convention:
 
 ## Dependency Installation
 
-This is an orchestration skill that requires the following plugins and their sub-skills to function across all 6 stages:
+This is an orchestration skill that requires sub-skills from multiple plugin **marketplaces**. You need to add the relevant marketplace sources and then install the required plugins.
 
-### Required Plugins
+### Add Marketplace Sources
+
+Some marketplaces are pre-configured. To add them manually:
 
 ```bash
-# Orchestration & execution
-claude plugins install superpowers          # brainstorming, writing-plans, executing-plans, etc.
+claude plugins marketplace add claude-plugins-official
+claude plugins marketplace add claude-code-skills
+```
 
-# Engineering skills
-claude plugins install engineering-skills   # senior-architect, code-reviewer, senior-qa, etc.
-claude plugins install engineering-advanced-skills  # release-manager
+### Install Required Plugins
 
-# Product & design
-claude plugins install product-skills       # product-discovery, spec-to-repo, etc.
-claude plugins install frontend-design      # frontend-design (UI design)
-claude plugins install figma                # figma-implement-design, figma-generate-design
+```bash
+# ── Orchestration & execution (official: claude-plugins-official) ──
+claude plugins install superpowers@claude-plugins-official
+# Includes: brainstorming, writing-plans, executing-plans,
+#           test-driven-development, dispatching-parallel-agents,
+#           subagent-driven-development, verification-before-completion,
+#           requesting-code-review, finishing-a-development-branch
 
-# Project management
-claude plugins install pm-skills            # senior-pm, jira-expert, meeting-analyzer, etc.
-claude plugins install commit-commands      # commit-push-pr, commit
+# ── Engineering (community: claude-code-skills) ──
+claude plugins install engineering-skills@claude-code-skills
+# Includes: senior-architect, code-reviewer, senior-qa, security-pen-testing,
+#           adversarial-reviewer, senior-fullstack, senior-backend, senior-frontend
+claude plugins install engineering-advanced-skills@claude-code-skills
+# Includes: release-manager
 
-# Executive / decision
-claude plugins install c-level-skills       # decision-logger
+# ── Product & design (community: claude-code-skills) ──
+claude plugins install product-skills@claude-code-skills
+# Includes: product-discovery, product-strategist, competitive-teardown,
+#           spec-to-repo, ux-researcher-designer, ui-design-system
+claude plugins install frontend-design@claude-plugins-official
+# Includes: frontend-design (UI design)
+claude plugins install figma@claude-plugins-official
+# Includes: figma-implement-design, figma-generate-design (requires Figma OAuth)
+
+# ── Project management (community: claude-code-skills) ──
+claude plugins install pm-skills@claude-code-skills
+# Includes: senior-pm, jira-expert, meeting-analyzer, scrum-master, etc.
+claude plugins install commit-commands@claude-plugins-official
+# Includes: commit-push-pr, commit
+
+# ── Executive / decision (community: claude-code-skills) ──
+claude plugins install c-level-skills@claude-code-skills
+# Includes: decision-logger
 ```
 
 ### Verify Installation
@@ -82,9 +105,25 @@ claude plugins install c-level-skills       # decision-logger
 claude plugins list
 ```
 
-Ensure all plugins appear in the list. If a plugin is missing, the corresponding stage skills won't be available and the orchestrator will skip or degrade accordingly.
+Ensure all plugins show `✔ enabled`. Missing plugins will cause the orchestrator to skip or degrade the corresponding stage.
 
-> Note: Some plugins require additional MCP server authentication (e.g., `figma` requires Figma MCP OAuth). The runtime will prompt you to complete the OAuth flow when needed.
+### Marketplace Repository Reference
+
+| Marketplace | GitHub Repository | Description |
+|-------------|-------------------|-------------|
+| `claude-plugins-official` | [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | Official Anthropic skills |
+| `claude-code-skills` | [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) | Community skills |
+
+### Install Directly from GitHub
+
+If you haven't configured a marketplace, you can install plugins directly from GitHub:
+
+```bash
+claude plugins install github:anthropics/claude-plugins-official
+claude plugins install github:alirezarezvani/claude-skills
+```
+
+> Note: Some plugins require additional MCP server authentication (e.g., `figma` requires Figma OAuth). The runtime will prompt you to complete the flow when needed.
 
 ## Usage
 
