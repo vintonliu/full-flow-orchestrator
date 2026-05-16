@@ -49,6 +49,43 @@
 | 测试报告 | `docs/test-report/test-report-v1.md` |
 | 复盘报告 | `docs/retrospective/retro-v1.md` |
 
+## 依赖技能安装
+
+本技能是编排型技能，需要以下插件包中的子技能来完成各个阶段的工作：
+
+### 必装插件
+
+```bash
+# 编排执行能力
+claude plugins install superpowers          # brainstorming, writing-plans, executing-plans, 等
+
+# 工程开发能力
+claude plugins install engineering-skills   # senior-architect, code-reviewer, senior-qa, 等
+claude plugins install engineering-advanced-skills  # release-manager
+
+# 产品/设计能力
+claude plugins install product-skills       # product-discovery, spec-to-repo, 等
+claude plugins install frontend-design      # frontend-design (UI 设计)
+claude plugins install figma                # figma-implement-design, figma-generate-design
+
+# 项目管理能力
+claude plugins install pm-skills            # senior-pm, jira-expert, meeting-analyzer, 等
+claude plugins install commit-commands      # commit-push-pr, commit
+
+# 高管/决策能力
+claude plugins install c-level-skills       # decision-logger
+```
+
+### 验证安装
+
+```bash
+claude plugins list
+```
+
+确保列表中包含以上所有插件。缺少某个插件时，对应阶段的技能将不可用，技能编排时会跳过或降级处理。
+
+> 提示：部分插件可能需要特定的 MCP 服务器（如 `figma` 需要 Figma MCP 认证）。运行时会提示你完成 OAuth 流程。
+
 ## 使用方法
 
 在 Claude Code 中直接输入触发场景中的任意语句，技能将自动加载并启动 6 阶段管线。你也可以显式调用：

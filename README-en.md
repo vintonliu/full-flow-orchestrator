@@ -49,6 +49,43 @@ All non-code deliverables follow this naming convention:
 | Test Report | `docs/test-report/test-report-v1.md` |
 | Retrospective | `docs/retrospective/retro-v1.md` |
 
+## Dependency Installation
+
+This is an orchestration skill that requires the following plugins and their sub-skills to function across all 6 stages:
+
+### Required Plugins
+
+```bash
+# Orchestration & execution
+claude plugins install superpowers          # brainstorming, writing-plans, executing-plans, etc.
+
+# Engineering skills
+claude plugins install engineering-skills   # senior-architect, code-reviewer, senior-qa, etc.
+claude plugins install engineering-advanced-skills  # release-manager
+
+# Product & design
+claude plugins install product-skills       # product-discovery, spec-to-repo, etc.
+claude plugins install frontend-design      # frontend-design (UI design)
+claude plugins install figma                # figma-implement-design, figma-generate-design
+
+# Project management
+claude plugins install pm-skills            # senior-pm, jira-expert, meeting-analyzer, etc.
+claude plugins install commit-commands      # commit-push-pr, commit
+
+# Executive / decision
+claude plugins install c-level-skills       # decision-logger
+```
+
+### Verify Installation
+
+```bash
+claude plugins list
+```
+
+Ensure all plugins appear in the list. If a plugin is missing, the corresponding stage skills won't be available and the orchestrator will skip or degrade accordingly.
+
+> Note: Some plugins require additional MCP server authentication (e.g., `figma` requires Figma MCP OAuth). The runtime will prompt you to complete the OAuth flow when needed.
+
 ## Usage
 
 In Claude Code, simply type any trigger phrase and the skill will auto-load the 6-stage pipeline. You can also invoke it explicitly:
